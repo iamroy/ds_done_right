@@ -1,4 +1,5 @@
 from linked_list.linked_list import Linked_List
+import linked_list.ll_problems as ll_probs
 
 def stack_driver():
     pass
@@ -27,7 +28,9 @@ def linked_list_driver():
     #new_ll.print_ll()
     #print(new_ll.search_in_ll(1))
 
-    new_ll.sort_elements_ll()
+    #new_ll.sort_elements_ll()
+    #new_ll.print_ll()
+    new_ll = ll_probs.remove_elements(new_ll, 2)
     new_ll.print_ll()
 
 
