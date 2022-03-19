@@ -32,7 +32,14 @@ def linked_list_driver():
     #new_ll.print_ll()
     new_ll = ll_probs.remove_elements(new_ll, 2)
     new_ll.print_ll()
-
+    new_ll2 = Linked_List()
+    new_ll2.insert_at_end_ll(1)
+    new_ll2.insert_at_end_ll(2)
+    #new_ll2.insert_at_end_ll(4)
+    new_ll2.insert_at_end_ll(2)
+    #new_ll2.insert_at_end_ll(1)
+    new_ll2.print_ll()
+    print(ll_probs.is_palindrome(new_ll2))
 
 def binary_tree_driver():
     pass
