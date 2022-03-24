@@ -4,6 +4,7 @@
 #141. Linked List Cycle
 
 from linked_list.ll_node import Node
+from collections import defaultdict
 
 #203. Remove Linked List Elements
 def remove_elements(linked_list, val):
@@ -55,6 +56,40 @@ def remove_duplicates_sorted_list(linked_list):
         else:
             prev = curr_node
 
+        curr_node = curr_node.next
+
+    linked_list.head = newNode.next
+
+    return linked_list
+
+
+#1836. Remove Duplicates From an Unsorted Linked List
+#Input: head = [1,2,3,2]
+#Output: [1,3]
+def remove_duplicates_unsorted_list(linked_list):
+    head_node = linked_list.head
+
+    if not head_node:
+        return
+
+    seen = defaultdict(int)
+    curr_node = head_node
+
+    while curr_node:
+        seen[curr_node.data] += 1
+        curr_node = curr_node.next
+
+    curr_node = head_node
+    newNode = Node(curr_node.data - 1)
+    newNode.next = head_node
+    prev = newNode
+
+    while curr_node:
+
+        if seen[curr_node.data]>1:
+            prev.next = curr_node.next
+        else:
+            prev = curr_node
         curr_node = curr_node.next
 
     linked_list.head = newNode.next
