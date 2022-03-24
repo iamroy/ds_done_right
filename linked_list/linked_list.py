@@ -156,7 +156,7 @@ class Linked_List:
             while i<counter:
                 i += 1
                 next_node = temp.next
-                if next_node.data<temp.data:
+                if next_node and next_node.data<temp.data:
                     temp.data, next_node.data = next_node.data, temp.data
                 temp = temp.next
 
