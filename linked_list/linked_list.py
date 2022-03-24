@@ -72,6 +72,27 @@ class Linked_List:
 
         self.length += 1
 
+
+    def create_cycle_ll(self, element_index):
+
+        temp = self.head
+        prev = temp
+        node_counter = 0
+        index_node = None
+
+        while temp:
+            node_counter += 1
+
+            if node_counter == element_index:
+                index_node = temp
+
+            prev =  temp
+            temp = temp.next
+
+        if index_node:
+            prev.next = index_node
+
+
     def delete_from_beginning_ll(self):
 
         if not self.head:

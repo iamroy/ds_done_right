@@ -1,6 +1,8 @@
 #203. Remove Linked List Elements
 #234. Palindrome Linked List
 #83. Remove Duplicates from Sorted List
+#141. Linked List Cycle
+
 from linked_list.ll_node import Node
 
 #203. Remove Linked List Elements
@@ -59,5 +61,21 @@ def remove_duplicates_sorted_list(linked_list):
 
     return linked_list
 
-def linked_list_cycle(head_node):
-    pass
+
+# hash map approach
+def linked_list_cycle(linked_list):
+    head_node = linked_list.head
+    curr_node = head_node
+    seen = {}
+    counter = 0
+    while curr_node:
+        counter += 1
+
+        if curr_node not in seen:
+            seen[curr_node] = counter
+        else:
+            return True
+
+        curr_node = curr_node.next
+
+    return False
