@@ -61,9 +61,9 @@ def remove_duplicates_sorted_list(linked_list):
 
     return linked_list
 
-
+#141. Linked List Cycle
 # hash map approach
-def linked_list_cycle(linked_list):
+def linked_list_has_cycle(linked_list):
     head_node = linked_list.head
     curr_node = head_node
     seen = {}
@@ -79,3 +79,21 @@ def linked_list_cycle(linked_list):
         curr_node = curr_node.next
 
     return False
+
+# two pointer approach
+def linked_list_has_cycle2(linked_list):
+    head_node = linked_list.head
+
+    if not head_node:
+        return False
+
+    slow_ptr = head_node
+    fast_ptr = head_node.next
+
+    while slow_ptr != fast_ptr:
+        if fast_ptr is None or fast_ptr.next is None:
+            return False
+        slow_ptr = slow_ptr.next
+        fast_ptr = fast_ptr.next.next
+
+    return True
