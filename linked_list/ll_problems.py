@@ -5,9 +5,11 @@
 #83. Remove Duplicates from Sorted List
 #1836. Remove Duplicates From an Unsorted Linked List
 #141. Linked List Cycle
+#445. Add Two Numbers II
 
 
 from linked_list.ll_node import Node
+from linked_list.linked_list import Linked_List
 from collections import defaultdict
 
 #206. Reverse Linked List
@@ -66,34 +68,29 @@ def reverse_between(linked_list, left, right):
 
 #1 pass algorithm
 def reverse_between_one_pass(linked_list, left, right):
-    return linked_list
 
-    """
     head_node = linked_list.head
     curr_node = head_node
-    prev_node = None
-    rev_tail_node= None
-    rev_head_node = None
-    counter = 0
+    prev_node, rev_tail_node, rev_head_node = None, None, None
     no_rev_left_end_node = None
-    no_rev_right_start_node = None
+    counter = 0
 
     while curr_node:
         counter += 1
-        if counter>=left or counter <=right and curr_node.next:
+        if counter>=left and counter <=right:
+
+            next_node = curr_node.next
+            curr_node.next = prev_node
+            prev_node = curr_node
 
             if counter == left:
                 rev_tail_node = curr_node
             if counter == right:
                 rev_head_node = curr_node
 
-            next_node = curr_node.next
-            curr_node.next = prev_node
-            prev_node = curr_node
             curr_node = next_node
         else:
             if counter>right:
-                no_rev_right_start_node
                 break
 
             if counter<left:
@@ -102,13 +99,15 @@ def reverse_between_one_pass(linked_list, left, right):
             prev_node = curr_node
             curr_node = curr_node.next
 
-    if not no_rev_left_end_node:
+    if rev_tail_node:
+        rev_tail_node.next = curr_node
+
+    if no_rev_left_end_node:
         no_rev_left_end_node.next = rev_head_node
+    else:
+        linked_list.head = rev_head_node
 
-    if not rev_tail_node:
-        rev_tail_node.next = no_rev_right_start_node
-
-    """
+    return linked_list
 
 
 #203. Remove Linked List Elements
@@ -254,8 +253,64 @@ def merge_nodes(linked_list):
 #445. Add Two Numbers II
 #Input: l1 = [7,2,4,3], l2 = [5,6,4]
 #Output: [7,8,0,7]
+# Without reversing but using extra space to store the inputs
 def add_two_numbers(linked_list1, linked_list12):
-    pass
+
+    head_node = linked_list1.head
+    curr_node = head_node
+    num_list1 = ''
+
+    while curr_node:
+        num_list1 += str(curr_node.data)
+        curr_node = curr_node.next
+
+    head_node = linked_list12.head
+    curr_node = head_node
+    num_list2 = ''
+
+    while curr_node:
+        num_list2 += str(curr_node.data)
+        curr_node = curr_node.next
+
+    final_sum_str = str(int(num_list1) + int(num_list2))
+    out_linked_list = Linked_List()
+
+    for c in final_sum_str:
+        out_linked_list.insert_at_end_ll(int(c))
+
+    return out_linked_list
+
+# With reversing but without using extra space to store the inputs
+def add_two_numbers_reverse_list(linked_list1, linked_list12):
+    linked_list1 = reverse_list(linked_list1)
+    linked_list12 = reverse_list(linked_list12)
+
+    head_node1 = linked_list1.head
+    curr_node1 = head_node1
+    head_node2 = linked_list12.head
+    curr_node2 = head_node2
+    out_linked_list = Linked_List()
+
+    carry = 0
+    while curr_node1 and curr_node2:
+
+        value = (curr_node1.data+curr_node2.data)%10
+        out_linked_list.insert_at_end_ll(value+carry)
+        carry = (curr_node1.data + curr_node2.data) // 10
+        curr_node1 = curr_node1.next
+        curr_node2 = curr_node2.next
+
+    if curr_node2:
+        while curr_node2:
+            out_linked_list.insert_at_end_ll(curr_node2.data)
+            curr_node2 = curr_node2.next
+
+    if curr_node1:
+        while curr_node1:
+            out_linked_list.insert_at_end_ll(curr_node1.data)
+            curr_node1 = curr_node1.next
+
+    return reverse_list(out_linked_list)
 
 
 #142. Linked List Cycle II
