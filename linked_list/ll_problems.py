@@ -5,6 +5,7 @@
 #83. Remove Duplicates from Sorted List
 #1836. Remove Duplicates From an Unsorted Linked List
 #141. Linked List Cycle
+#1019. Next Greater Node In Linked List
 #445. Add Two Numbers II
 
 
@@ -241,8 +242,25 @@ def linked_list_has_cycle2(linked_list):
 #1019. Next Greater Node In Linked List
 #Input: head = [2,7,4,3,5]
 #Output: [7,0,5,5,0]
+#monotonic stack approach
 def next_larger_nodes(linked_list):
-    pass
+    head_node = linked_list.head
+    curr_node = head_node
+    out_list = []
+    stack_arr = []
+    index = -1
+
+    while curr_node:
+        index += 1
+        out_list += [0]
+        while stack_arr and stack_arr[-1][0]<curr_node.data:
+            val = stack_arr.pop()
+            out_list[val[1]] = curr_node.data
+
+        stack_arr.append([curr_node.data, index])
+        curr_node = curr_node.next
+    return out_list
+
 
 #2181. Merge Nodes in Between Zeros
 #Input: head = [0,3,1,0,4,5,2,0]
@@ -254,7 +272,7 @@ def merge_nodes(linked_list):
 #Input: l1 = [7,2,4,3], l2 = [5,6,4]
 #Output: [7,8,0,7]
 # Without reversing but using extra space to store the inputs
-def add_two_numbers(linked_list1, linked_list12):
+def add_two_numbers(linked_list1, linked_list2):
 
     head_node = linked_list1.head
     curr_node = head_node
@@ -264,7 +282,7 @@ def add_two_numbers(linked_list1, linked_list12):
         num_list1 += str(curr_node.data)
         curr_node = curr_node.next
 
-    head_node = linked_list12.head
+    head_node = linked_list2.head
     curr_node = head_node
     num_list2 = ''
 
@@ -281,13 +299,13 @@ def add_two_numbers(linked_list1, linked_list12):
     return out_linked_list
 
 # With reversing but without using extra space to store the inputs
-def add_two_numbers_reverse_list(linked_list1, linked_list12):
+def add_two_numbers_reverse_list(linked_list1, linked_list2):
     linked_list1 = reverse_list(linked_list1)
-    linked_list12 = reverse_list(linked_list12)
+    linked_list2 = reverse_list(linked_list2)
 
     head_node1 = linked_list1.head
     curr_node1 = head_node1
-    head_node2 = linked_list12.head
+    head_node2 = linked_list2.head
     curr_node2 = head_node2
     out_linked_list = Linked_List()
 
