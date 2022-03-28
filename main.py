@@ -31,16 +31,18 @@ def linked_list_driver():
     new_ll_1.insert_at_end_ll(3)
 
     new_ll_2 = Linked_List()
-    new_ll_2.insert_at_end_ll(6)
-    new_ll_2.insert_at_end_ll(5)
-    new_ll_2.insert_at_end_ll(7)
-    new_ll_2.insert_at_end_ll(4)
+    new_ll_2.insert_at_end_ll(9)
+    new_ll_2.insert_at_end_ll(9)
+    new_ll_2.insert_at_end_ll(9)
+    new_ll_2.insert_at_end_ll(9)
 
     #new_ll = ll_probs.add_two_numbers(new_ll_1, new_ll_2)
     #new_ll.print_ll()
     #new_ll = ll_probs.add_two_numbers_reverse_list(new_ll_1, new_ll_2)
     new_ll_2.print_ll()
-    print(ll_probs.next_larger_nodes(new_ll_2))
+    #print(ll_probs.next_larger_nodes(new_ll_2))
+    new_ll_2 = ll_probs.plus_one(new_ll_2)
+    new_ll_2.print_ll()
 
     #print(ll_probs.linked_list_has_cycle(new_ll))
     #new_ll.create_cycle_ll(4)

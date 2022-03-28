@@ -340,4 +340,29 @@ def detect_cycle(linked_list):
 #Input: head = [1,2,3]
 #Output: [1,2,4]
 def plus_one(linked_list):
-    pass
+
+    head_node = linked_list.head
+    # sentinel head
+    sentinel = Node(0)
+    sentinel.next = head_node
+    curr = head_node
+    not_nine = sentinel
+
+    # find the rightmost not-nine digit
+    while curr:
+        if curr.data != 9:
+            not_nine = curr
+        curr = curr.next
+
+    # increase this rightmost not-nine digit by 1
+    not_nine.data += 1
+    not_nine = not_nine.next
+
+    # set all the following nines to zeros
+    while not_nine:
+        not_nine.data = 0
+        not_nine = not_nine.next
+
+    if sentinel.data:
+        linked_list.head = sentinel
+    return linked_list
