@@ -265,8 +265,52 @@ def next_larger_nodes(linked_list):
 #2181. Merge Nodes in Between Zeros
 #Input: head = [0,3,1,0,4,5,2,0]
 #Output: [4,11]
+# recursive solution
 def merge_nodes(linked_list):
-    pass
+
+    head_node = linked_list.head
+    curr_node = head_node.next
+
+    if not curr_node:
+        return Linked_List()
+
+    node_data = 0
+
+    while curr_node.data:
+        node_data += curr_node.data
+        curr_node = curr_node.next
+
+    head_node.data = node_data
+    new_linked_list = Linked_List()
+    new_linked_list.head = curr_node
+    new_linked_list = merge_nodes(new_linked_list)
+    head_node.next = new_linked_list.head
+    linked_list.head = head_node
+
+    return linked_list
+
+def merge_nodes_iterative(linked_list):
+    head_node = linked_list.head
+    curr_node = head_node.next
+    out_node  = head_node
+    node_data = 0
+    prev = None
+
+    while curr_node:
+        if not curr_node.data:
+            if not prev:
+                out_node = head_node
+            else:
+                out_node = out_node.next
+            out_node.data = node_data
+            prev = out_node
+            node_data = 0
+        node_data += curr_node.data
+        curr_node = curr_node.next
+
+    out_node.next = None
+
+    return linked_list
 
 #445. Add Two Numbers II
 #Input: l1 = [7,2,4,3], l2 = [5,6,4]
