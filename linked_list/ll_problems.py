@@ -6,7 +6,12 @@
 #1836. Remove Duplicates From an Unsorted Linked List
 #141. Linked List Cycle
 #1019. Next Greater Node In Linked List
+#2181. Merge Nodes in Between Zeros
 #445. Add Two Numbers II
+#142. Linked List Cycle II
+#369. Plus One Linked List
+#328. Odd Even Linked List
+#143. Reorder List
 
 
 from linked_list.ll_node import Node
@@ -378,7 +383,27 @@ def add_two_numbers_reverse_list(linked_list1, linked_list2):
 #142. Linked List Cycle II
 #Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.
 def detect_cycle(linked_list):
-    pass
+    head_node = linked_list.head
+
+    if not head_node or not head_node.next:
+        return -1
+
+    slow_ptr = head_node.next
+    fast_ptr = head_node.next.next
+
+    while slow_ptr != fast_ptr:
+        if not fast_ptr:
+            return -1
+        slow_ptr = slow_ptr.next
+        fast_ptr = fast_ptr.next.next
+
+    ptr1, ptr2 = head_node, slow_ptr
+
+    while ptr1 != ptr2:
+        ptr1 = ptr1.next
+        ptr2 = ptr2.next
+
+    return ptr1
 
 #369. Plus One Linked List
 #Input: head = [1,2,3]
@@ -409,4 +434,39 @@ def plus_one(linked_list):
 
     if sentinel.data:
         linked_list.head = sentinel
+    return linked_list
+
+#328. Odd Even Linked List
+#Input: head = [1,2,3,4]
+#Output: [1,3,4,2]
+#Input: head = [2,1,3,5,6,4,7]
+#Output: [2,3,6,7,1,5,4]
+def odd_even_list(linked_list):
+    head_node = linked_list.head
+
+    if not head_node:
+        return linked_list
+
+    odd = head_node
+    even = head_node.next
+    even_head = even
+
+    while odd.next and even.next:
+        odd.next = even.next
+        if odd.next:
+            odd = odd.next
+        even.next = odd.next
+        even = even.next
+
+    odd.next = even_head
+
+    return linked_list
+
+
+#143. Reorder List
+#Input: head = [1,2,3,4]
+#Output: [1,4,2,3]
+#Input: head = [1,2,3,4,5]
+#Output: [1,5,2,4,3]
+def reorder_list(linked_list):
     return linked_list
