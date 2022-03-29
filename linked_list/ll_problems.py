@@ -11,7 +11,9 @@
 #142. Linked List Cycle II
 #369. Plus One Linked List
 #328. Odd Even Linked List
-#143. Reorder List
+#143. Reorder
+#86. Partition List
+#Partition List II
 
 
 from linked_list.ll_node import Node
@@ -497,4 +499,97 @@ def reorder_list(linked_list):
         left_ptr.next, left_ptr = right_ptr, left_ptr.next
         right_ptr.next, right_ptr = left_ptr, right_ptr.next
 
+    return linked_list
+
+
+#86. Partition List
+#Input: head = [1,4,3,2,5,2], x = 3
+#Output: [1,2,2,4,3,5]
+def partition_list(linked_list, val):
+
+    head_node           = linked_list.head
+    new_node            = Node(val-1)
+    new_node.next       = head_node
+    linked_list.head    = new_node
+
+    fast_ptr    = head_node
+    prev        = new_node
+    slow_ptr    = new_node
+    new_head    = new_node
+
+    while fast_ptr:
+        if fast_ptr.data<val:
+            if prev.data<val:
+                slow_ptr = fast_ptr
+            elif prev.data>=val:
+                slow_ptr_next = slow_ptr.next
+                fast_ptr_next = fast_ptr.next
+                prev.next = fast_ptr_next
+                slow_ptr.next = fast_ptr
+                fast_ptr.next = slow_ptr_next
+                slow_ptr = fast_ptr
+                fast_ptr = fast_ptr_next
+                continue
+
+        prev = fast_ptr
+        fast_ptr = fast_ptr.next
+
+    #linked_list.print_ll()
+    linked_list.head = linked_list.head.next
+
+
+    return linked_list
+
+#Partition List II
+#Input:
+#1->4->3->2->5->2->3,
+#x = 3
+#Output:
+#1->2->2->3->3->4->5
+#Explanation:
+#Nodes with value less than 3 come first,
+#then equal to 3 and then greater than 3.
+def partition_list_2(linked_list, x):
+
+    head_node = linked_list.head
+    equal_val_stack = []
+    greater_val_stack = []
+
+    curr_node = head_node
+    new_head_node = None
+    prev_node = None
+
+    while curr_node:
+        if curr_node.data > x:
+            greater_val_stack.append(curr_node)
+        elif curr_node.data < x:
+            if prev_node:
+                prev_node.next = curr_node
+            else:
+                new_head_node = curr_node
+            prev_node = curr_node
+        else:
+            equal_val_stack.append(curr_node)
+
+        curr_node = curr_node.next
+
+    for n in equal_val_stack:
+        if prev_node:
+            prev_node.next = n
+        else:
+            new_head_node = n
+            prev_node = new_head_node
+        prev_node = prev_node.next
+
+    for n in greater_val_stack:
+        if prev_node:
+            prev_node.next = n
+        else:
+            new_head_node = n
+            prev_node = new_head_node
+
+        prev_node = prev_node.next
+    prev_node.next = None
+
+    linked_list.head = new_head_node
     return linked_list
