@@ -35,7 +35,7 @@ def linked_list_driver():
     new_ll_2.insert_at_end_ll(2)
     new_ll_2.insert_at_end_ll(3)
     new_ll_2.insert_at_end_ll(4)
-    #new_ll_2.insert_at_end_ll(5)
+    new_ll_2.insert_at_end_ll(5)
     #new_ll_2.insert_at_end_ll(6)
     #new_ll_2.insert_at_end_ll(7)
     #new_ll_2.insert_at_end_ll(8)
@@ -47,7 +47,8 @@ def linked_list_driver():
     #print(ll_probs.next_larger_nodes(new_ll_2))
     #new_ll_2 = ll_probs.plus_one(new_ll_2)
     #new_ll_2 = ll_probs.merge_nodes_iterative(new_ll_2)
-    new_ll_2 = ll_probs.odd_even_list(new_ll_2)
+    #new_ll_2 = ll_probs.odd_even_list(new_ll_2)
+    new_ll_2 = ll_probs.reorder_list(new_ll_2)
     new_ll_2.print_ll()
 
     #print(ll_probs.linked_list_has_cycle(new_ll))

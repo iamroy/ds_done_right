@@ -469,4 +469,32 @@ def odd_even_list(linked_list):
 #Input: head = [1,2,3,4,5]
 #Output: [1,5,2,4,3]
 def reorder_list(linked_list):
+    head_node = linked_list.head
+
+    if not head_node:
+        return linked_list
+
+    slow_ptr = head_node
+    fast_ptr = head_node
+
+    while fast_ptr and fast_ptr.next:
+        slow_ptr = slow_ptr.next
+        fast_ptr = fast_ptr.next.next
+
+    mid_node = slow_ptr
+    curr_node = mid_node.next
+    prev = None
+
+    while curr_node:
+        curr_node.next, prev, curr_node = prev, curr_node, curr_node.next
+
+    mid_node.next = None
+    right_end_node = prev
+    left_ptr = head_node
+    right_ptr = right_end_node
+
+    while right_ptr and left_ptr:
+        left_ptr.next, left_ptr = right_ptr, left_ptr.next
+        right_ptr.next, right_ptr = left_ptr, right_ptr.next
+
     return linked_list
