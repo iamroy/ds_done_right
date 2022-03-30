@@ -14,6 +14,7 @@
 #143. Reorder
 #86. Partition List
 #Partition List II
+#1721. Swapping Nodes in a Linked List
 
 
 from linked_list.ll_node import Node
@@ -593,3 +594,66 @@ def partition_list_2(linked_list, x):
 
     linked_list.head = new_head_node
     return linked_list
+
+
+#1721. Swapping Nodes in a Linked List
+#Input: head = [1,2,3,4,5], k = 2
+#Output: [1,4,3,2,5]
+#Input: head = [7,9,6,6,7,8,3,0,9,5], k = 5
+#Output: [7,9,6,6,8,7,3,0,9,5]
+
+def swap_nodes(linked_list, k):
+
+    head_node = linked_list.head
+
+    if not head_node.next:
+        return linked_list
+
+    node_list = []
+    slow_ptr = head_node
+    prev, prev1, prev2 = None, None, None
+    node1, node2 = None, None
+
+    total_length = 0
+    left_node_id, right_node_id = k, 0
+    ptr1, ptr2 = head_node, None
+
+    while ptr1:
+        total_length += 1
+
+        if right_node_id:
+            right_node_id += 1
+            prev2 = ptr2
+            ptr2 = ptr2.next
+
+        if total_length == k:
+            right_node_id = 1
+            node1 = ptr1
+            prev1 = prev
+            ptr2 = head_node
+
+        prev = ptr1
+        ptr1 = ptr1.next
+
+    node2 = ptr2
+
+    if left_node_id == right_node_id:
+        return linked_list
+
+    if prev1:
+        prev1.next = node2
+    else:
+        linked_list.head = node2
+
+    if prev2:
+        prev2.next = node1
+    else:
+        linked_list.head = node1
+
+    temp = node1.next
+    node1.next = node2.next
+    node2.next = temp
+
+    return linked_list
+
+
