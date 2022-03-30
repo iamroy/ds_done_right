@@ -609,8 +609,6 @@ def swap_nodes(linked_list, k):
     if not head_node.next:
         return linked_list
 
-    node_list = []
-    slow_ptr = head_node
     prev, prev1, prev2 = None, None, None
     node1, node2 = None, None
 
@@ -656,4 +654,39 @@ def swap_nodes(linked_list, k):
 
     return linked_list
 
+
+#19. Remove Nth Node From End of List
+#Input: head = [1,2,3,4,5], n = 2
+#Output: [1,2,3,5]
+
+def remove_nth_from_end(linked_list, n):
+    head_node = linked_list.head
+    prev2 = None
+    node2 = None, None
+
+    total_length = 0
+    left_node_id, right_node_id = n, 0
+    ptr1, ptr2 = head_node, None
+
+    while ptr1:
+        total_length += 1
+
+        if right_node_id:
+            right_node_id += 1
+            prev2 = ptr2
+            ptr2 = ptr2.next
+
+        if total_length == n:
+            right_node_id = 1
+            ptr2 = head_node
+        ptr1 = ptr1.next
+
+    node2 = ptr2
+
+    if prev2:
+        prev2.next = node2.next
+    else:
+        linked_list.head = node2.next
+
+    return linked_list
 
