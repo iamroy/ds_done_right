@@ -689,4 +689,3 @@ def remove_nth_from_end(linked_list, n):
         linked_list.head = node2.next
 
     return linked_list
-
